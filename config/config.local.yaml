@@ -1,0 +1,9 @@
+Server:
+  Port: 3000
+  Debug: false
+
+Database:
+  Host: "www.db4free.net"
+  Name: "dbjohnstoricard"
+  User: "c28a0yelt1f58iyd"
+  Password: "a8e8f27b"
