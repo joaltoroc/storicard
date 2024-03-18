@@ -1,0 +1,10 @@
+Server:
+  Port: 3000
+  Debug: false
+
+Database:
+  Host: mysql-db
+  Port: 3306
+  Name: users
+  User: mysql
+  Password: pwd

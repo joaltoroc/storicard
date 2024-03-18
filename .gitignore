@@ -1,2 +1,5 @@
 config/*.yaml
 main
+.DS_Store
+.env
+bin

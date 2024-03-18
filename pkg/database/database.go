@@ -12,7 +12,13 @@ import (
 )
 
 func NewDatabase(cfg config.Config) (*gorm.DB, error) {
-	connectionString := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=true", cfg.Database.User, cfg.Database.Password, cfg.Database.Host, cfg.Database.Name)
+	connectionString := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=true",
+		cfg.Database.User,
+		cfg.Database.Password,
+		cfg.Database.Host,
+		cfg.Database.Port,
+		cfg.Database.Name,
+	)
 
 	db, err := gorm.Open(mysql.Open(connectionString), &gorm.Config{
 		NamingStrategy: schema.NamingStrategy{
@@ -23,8 +29,10 @@ func NewDatabase(cfg config.Config) (*gorm.DB, error) {
 		return nil, err
 	}
 
-	// AutoMigrate
-	db.AutoMigrate(&entities.Transaction{})
+	err = db.AutoMigrate(&entities.Transaction{})
+	if err != nil {
+		return nil, err
+	}
 
 	return db, nil
 }

@@ -1,5 +1,9 @@
 # StoriCard
 
+## Based on
+
+[Golang Clean Architecture](https://github.com/DoWithLogic/golang-clean-architecture)
+
 ## Golang Clean Architecture
 
 This is an example of implementation of Clean Architecture with S.O.L.I.D Principles in Go (Golang) projects.
@@ -50,11 +54,11 @@ The DIP promotes high-level modules (e.g., use cases) to depend on abstractions 
 
 ## 🔥 Layers of Domain
 
-- [Controller / Delivery](https://github.com/DoWithLogic/golang-clean-architecture/tree/main/internal/users/delivery)
-- [Data Transfer Object (DTO)](https://github.com/DoWithLogic/golang-clean-architecture/tree/main/internal/users/dtos)
-- [Usecase](https://github.com/DoWithLogic/golang-clean-architecture/tree/main/internal/users/usecase)
-- [Entity](https://github.com/DoWithLogic/golang-clean-architecture/tree/main/internal/users/entities)
-- [Repository](https://github.com/DoWithLogic/golang-clean-architecture/tree/main/internal/users/repository)
+- [Controller / Handler](https://github.com/joaltoroc/storicard/tree/main/internal/transaction/handler/v1)
+- [Data Transfer Object (DTO)](https://github.com/joaltoroc/storicard/tree/main/internal/transaction/dtos)
+- [Usecase](https://github.com/joaltoroc/storicard/tree/main/internal/transaction/usecase)
+- [Entity](https://github.com/joaltoroc/storicard/tree/main/internal/transaction/entities)
+- [Repository](https://github.com/joaltoroc/storicard/tree/main/internal/transaction/repository)
 
 ## The diagram
 

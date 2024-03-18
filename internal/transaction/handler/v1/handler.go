@@ -22,7 +22,7 @@ func NewHandlers(useCase transaction.UseCase) *handlers {
 
 func (handler *handlers) ProcessFile(c echo.Context) error {
 	var (
-		ctx, cancel = context.WithTimeout(c.Request().Context(), time.Duration(30*time.Second))
+		ctx, cancel = context.WithTimeout(c.Request().Context(), 30*time.Second)
 		payload     dtos.Payload
 	)
 	defer cancel()

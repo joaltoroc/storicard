@@ -7,5 +7,5 @@ import (
 )
 
 func main() {
-	app.NewApp(context.Background()).Run()
+	_ = app.NewApp(context.Background()).Run()
 }

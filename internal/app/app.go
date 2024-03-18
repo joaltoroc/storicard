@@ -25,10 +25,12 @@ type App struct {
 	local bool
 }
 
+const local = "local"
+
 func NewApp(ctx context.Context) *App {
 	env := os.Getenv("env")
 	if env == "" {
-		env = "local"
+		env = local
 	}
 
 	cfg, err := config.LoadConfig(env)
@@ -45,7 +47,7 @@ func NewApp(ctx context.Context) *App {
 		cfg:   cfg,
 		db:    db,
 		echo:  echo.New(),
-		local: env == "local",
+		local: env == local,
 	}
 }
 
@@ -70,7 +72,7 @@ func (app *App) Run() error {
 		dbInstance, _ := app.db.DB()
 		_ = dbInstance.Close()
 
-		app.echo.Shutdown(ctx)
+		_ = app.echo.Shutdown(ctx)
 	}()
 
 	app.echo.Debug = app.cfg.Server.Debug

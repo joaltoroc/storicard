@@ -3,7 +3,6 @@ module github/joaltoroc/storicard
 go 1.22.1
 
 require (
-	github.com/google/uuid v1.4.0
 	github.com/invopop/validation v0.3.0
 	github.com/labstack/echo/v4 v4.11.4
 	github.com/spf13/viper v1.18.2
