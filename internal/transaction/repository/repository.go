@@ -12,9 +12,9 @@ type repository struct {
 	db *gorm.DB
 }
 
-func NewRepository(c *gorm.DB) transaction.Repository {
+func NewRepository(db *gorm.DB) transaction.Repository {
 	return &repository{
-		db: c,
+		db,
 	}
 }
 
@@ -23,4 +23,11 @@ func (r *repository) InsertData(ctx context.Context, transactions []entities.Tra
 	result := r.db.Create(transactions)
 
 	return result.Error
+}
+
+func (r *repository) GetData(ctx context.Context) ([]entities.Transaction, error) {
+	transactions := make([]entities.Transaction, 0)
+	result := r.db.Find(&transactions)
+
+	return transactions, result.Error
 }

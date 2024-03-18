@@ -1,5 +1,9 @@
 # StoriCard
 
+## Description
+
+[Tech_Challenge_-_Software_Engineer](docs/Tech_Challenge_-_Software_Engineer.pdf)
+
 ## Based on
 
 [Golang Clean Architecture](https://github.com/DoWithLogic/golang-clean-architecture)

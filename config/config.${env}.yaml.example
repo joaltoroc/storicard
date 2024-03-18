@@ -8,3 +8,8 @@ Database:
   Name: users
   User: mysql
   Password: pwd
+
+AWS:
+  Region: "us-east-1"
+  S3:
+    Bucket: "joaltoroc-storicard"

@@ -9,12 +9,14 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"gorm.io/gorm"
 
 	"github/joaltoroc/storicard/config"
 	"github/joaltoroc/storicard/pkg/database"
+	"github/joaltoroc/storicard/pkg/documents"
 	customMiddleware "github/joaltoroc/storicard/pkg/middleware"
 )
 
@@ -23,6 +25,7 @@ type App struct {
 	cfg   config.Config
 	echo  *echo.Echo
 	local bool
+	s3    *s3.S3
 }
 
 const local = "local"
@@ -43,11 +46,17 @@ func NewApp(ctx context.Context) *App {
 		panic(err)
 	}
 
+	s3, err := documents.NewS3(cfg)
+	if err != nil {
+		panic(err)
+	}
+
 	return &App{
 		cfg:   cfg,
 		db:    db,
 		echo:  echo.New(),
 		local: env == local,
+		s3:    s3,
 	}
 }
 
@@ -76,6 +85,7 @@ func (app *App) Run() error {
 	}()
 
 	app.echo.Debug = app.cfg.Server.Debug
+
 	app.echo.Use(customMiddleware.AppCors())
 	app.echo.Use(customMiddleware.CacheWithRevalidation)
 

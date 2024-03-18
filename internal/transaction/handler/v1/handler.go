@@ -54,3 +54,21 @@ func (handler *handlers) ProcessFile(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, response.NewResponse(http.StatusOK, response.MsgSuccess, nil))
 }
+
+func (handler *handlers) GetData(c echo.Context) error {
+	var (
+		ctx, cancel = context.WithTimeout(c.Request().Context(), 30*time.Second)
+	)
+	defer cancel()
+
+	data, err := handler.useCase.GetData(ctx)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, response.NewResponseError(
+			http.StatusInternalServerError,
+			response.MsgFailed,
+			err.Error()),
+		)
+	}
+
+	return c.JSON(http.StatusOK, response.NewResponse(http.StatusOK, response.MsgSuccess, data))
+}
