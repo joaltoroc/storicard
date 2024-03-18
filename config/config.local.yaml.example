@@ -1,0 +1,9 @@
+Server:
+  Port: 3000
+  Debug: false
+
+Database:
+  Host: ""
+  Name: ""
+  User: ""
+  Password: ""

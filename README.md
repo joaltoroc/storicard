@@ -12,7 +12,7 @@ Rule of Clean Architecture by Uncle Bob
 - Independent of Database. You can swap out Oracle or SQL Server, for Mongo, BigTable, CouchDB, or something else. Your business rules are not bound to the database.
 - Independent of any external agency. In fact your business rules simply don’t know anything at all about the outside world.
 
-More at [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2011/11/22/Clean-Architecture.html))
+More at [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2011/11/22/Clean-Architecture.html)
 
 ## 🔍 What S.O.L.I.D Principle is?
 
