@@ -35,6 +35,4 @@ services:
       - ./config/config.local.yaml:/app/config/config.local.yaml
     depends_on:
       - mysql-db
-    dns:
-      - 8.8.8.8
-      - 4.4.4.4
+    network_mode: "host"
