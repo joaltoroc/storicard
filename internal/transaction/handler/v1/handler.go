@@ -43,7 +43,7 @@ func (handler *handlers) ProcessFile(c echo.Context) error {
 		)
 	}
 
-	httpCode, err := handler.useCase.ProcessFile(ctx, payload)
+	httpCode, executionID, err := handler.useCase.ProcessFile(ctx, payload)
 	if err != nil {
 		return c.JSON(httpCode, response.NewResponseError(
 			httpCode,
@@ -52,7 +52,7 @@ func (handler *handlers) ProcessFile(c echo.Context) error {
 		)
 	}
 
-	return c.JSON(http.StatusOK, response.NewResponse(http.StatusOK, response.MsgSuccess, nil))
+	return c.JSON(http.StatusOK, response.NewResponse(http.StatusOK, response.MsgSuccess, map[string]string{"executionID": executionID}))
 }
 
 func (handler *handlers) GetData(c echo.Context) error {
@@ -62,6 +62,25 @@ func (handler *handlers) GetData(c echo.Context) error {
 	defer cancel()
 
 	data, err := handler.useCase.GetData(ctx)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, response.NewResponseError(
+			http.StatusInternalServerError,
+			response.MsgFailed,
+			err.Error()),
+		)
+	}
+
+	return c.JSON(http.StatusOK, response.NewResponse(http.StatusOK, response.MsgSuccess, data))
+}
+
+func (handler *handlers) GetDataByID(c echo.Context) error {
+	var (
+		ctx, cancel = context.WithTimeout(c.Request().Context(), 30*time.Second)
+		executionID = c.Param("executionID")
+	)
+	defer cancel()
+
+	data, err := handler.useCase.GetDataByID(ctx, executionID)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, response.NewResponseError(
 			http.StatusInternalServerError,

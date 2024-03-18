@@ -1,8 +1,146 @@
+<!-- markdownlint-configure-file { "MD024": false } -->
 # StoriCard
 
 ## Description
 
 [Tech_Challenge_-_Software_Engineer](docs/Tech_Challenge_-_Software_Engineer.pdf)
+
+## Endpoints
+
+### Process File
+
+#### Request
+
+```curl
+curl --location 'http://localhost:3000/api/v1/transaction/process' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "fileName": "file-example.csv",
+    "email": "joaltoroc@jatc.co"
+}'
+```
+
+#### Response
+
+```json
+{
+    "status": 200,
+    "message": "Success",
+    "data": {
+        "executionID": "17aab49b-f2dd-4ae5-aa68-7b31becff7cb"
+    }
+}
+```
+
+### Get All Execution
+
+#### Request
+
+```curl
+curl --location 'http://localhost:3000/api/v1/transaction'
+```
+
+#### Response
+
+```json
+{
+    "status": 200,
+    "message": "Success",
+    "data": [
+        {
+            "ID": 1,
+            "ExecutionID": "17aab49b-f2dd-4ae5-aa68-7b31becff7cb",
+            "FileID": 1,
+            "TypeTransaction": "credit",
+            "Date": "2024-07-15T00:00:00Z",
+            "Value": 60.5,
+            "CreatedAt": "2024-03-18T16:03:28.421Z"
+        },
+        {
+            "ID": 2,
+            "ExecutionID": "17aab49b-f2dd-4ae5-aa68-7b31becff7cb",
+            "FileID": 2,
+            "TypeTransaction": "debit",
+            "Date": "2024-07-28T00:00:00Z",
+            "Value": -10.3,
+            "CreatedAt": "2024-03-18T16:03:28.421Z"
+        },
+        {
+            "ID": 3,
+            "ExecutionID": "17aab49b-f2dd-4ae5-aa68-7b31becff7cb",
+            "FileID": 3,
+            "TypeTransaction": "debit",
+            "Date": "2024-08-02T00:00:00Z",
+            "Value": -20.46,
+            "CreatedAt": "2024-03-18T16:03:28.421Z"
+        },
+        {
+            "ID": 4,
+            "ExecutionID": "17aab49b-f2dd-4ae5-aa68-7b31becff7cb",
+            "FileID": 4,
+            "TypeTransaction": "credit",
+            "Date": "2024-08-13T00:00:00Z",
+            "Value": 10,
+            "CreatedAt": "2024-03-18T16:03:28.421Z"
+        }
+    ]
+}
+```
+
+### Get By Execution ID
+
+#### Request
+
+```curl
+curl --location 'http://localhost:3000/api/v1/transaction/17aab49b-f2dd-4ae5-aa68-7b31becff7cb'
+```
+
+#### Response
+
+```json
+{
+    "status": 200,
+    "message": "Success",
+    "data": [
+        {
+            "ID": 1,
+            "ExecutionID": "17aab49b-f2dd-4ae5-aa68-7b31becff7cb",
+            "FileID": 1,
+            "TypeTransaction": "credit",
+            "Date": "2024-07-15T00:00:00Z",
+            "Value": 60.5,
+            "CreatedAt": "2024-03-18T16:03:28.421Z"
+        },
+        {
+            "ID": 2,
+            "ExecutionID": "17aab49b-f2dd-4ae5-aa68-7b31becff7cb",
+            "FileID": 2,
+            "TypeTransaction": "debit",
+            "Date": "2024-07-28T00:00:00Z",
+            "Value": -10.3,
+            "CreatedAt": "2024-03-18T16:03:28.421Z"
+        },
+        {
+            "ID": 3,
+            "ExecutionID": "17aab49b-f2dd-4ae5-aa68-7b31becff7cb",
+            "FileID": 3,
+            "TypeTransaction": "debit",
+            "Date": "2024-08-02T00:00:00Z",
+            "Value": -20.46,
+            "CreatedAt": "2024-03-18T16:03:28.421Z"
+        },
+        {
+            "ID": 4,
+            "ExecutionID": "17aab49b-f2dd-4ae5-aa68-7b31becff7cb",
+            "FileID": 4,
+            "TypeTransaction": "credit",
+            "Date": "2024-08-13T00:00:00Z",
+            "Value": 10,
+            "CreatedAt": "2024-03-18T16:03:28.421Z"
+        }
+    ]
+}
+```
 
 ## Based on
 

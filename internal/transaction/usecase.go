@@ -8,6 +8,7 @@ import (
 )
 
 type UseCase interface {
-	ProcessFile(ctx context.Context, payload dtos.Payload) (httpCode int, err error)
+	ProcessFile(ctx context.Context, payload dtos.Payload) (int, string, error)
 	GetData(ctx context.Context) ([]entities.Transaction, error)
+	GetDataByID(ctx context.Context, executionID string) ([]entities.Transaction, error)
 }

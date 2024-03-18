@@ -25,9 +25,18 @@ func (r *repository) InsertData(ctx context.Context, transactions []entities.Tra
 	return result.Error
 }
 
+// GetData implements transaction.Repository.
 func (r *repository) GetData(ctx context.Context) ([]entities.Transaction, error) {
 	transactions := make([]entities.Transaction, 0)
 	result := r.db.Find(&transactions)
+
+	return transactions, result.Error
+}
+
+// GetDataByID implements transaction.Repository.
+func (r *repository) GetDataByID(ctx context.Context, executionID string) ([]entities.Transaction, error) {
+	transactions := make([]entities.Transaction, 0)
+	result := r.db.Where(&entities.Transaction{ExecutionID: executionID}).Find(&transactions)
 
 	return transactions, result.Error
 }
