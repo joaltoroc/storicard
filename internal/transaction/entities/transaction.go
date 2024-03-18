@@ -7,16 +7,16 @@ type (
 		ID              int64 `gorm:"primaryKey;autoIncrement:true"`
 		ExecutionID     string
 		FileID          int64
-		TypeTransaction TypeTransaction
+		TypeTransaction TransactionType
 		Date            time.Time
 		Value           float64
 		CreatedAt       time.Time
 	}
 
-	TypeTransaction string
+	TransactionType string
 )
 
 const (
-	DebitType  TypeTransaction = "debit"
-	CreditType TypeTransaction = "credit"
+	DebitType  TransactionType = "debit"
+	CreditType TransactionType = "credit"
 )

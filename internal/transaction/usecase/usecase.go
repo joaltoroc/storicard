@@ -11,6 +11,7 @@ import (
 	"strings"
 	"time"
 
+	linq "github.com/ahmetb/go-linq/v3"
 	"github.com/google/uuid"
 
 	"github/joaltoroc/storicard/internal/transaction"
@@ -20,13 +21,21 @@ import (
 
 type (
 	usecase struct {
-		repo    transaction.Repository
-		storage transaction.Storage
+		repo         transaction.Repository
+		storage      transaction.Storage
+		notification transaction.Notification
 	}
+
+	Month struct {
+		Month string
+		Count int
+	}
+
+	Months []Month
 )
 
-func NewUseCase(repo transaction.Repository, storage transaction.Storage) transaction.UseCase {
-	return &usecase{repo, storage}
+func NewUseCase(repo transaction.Repository, storage transaction.Storage, notification transaction.Notification) transaction.UseCase {
+	return &usecase{repo, storage, notification}
 }
 
 // ProcessFile implements transaction.UseCase.
@@ -48,7 +57,26 @@ func (u *usecase) ProcessFile(ctx context.Context, payload dtos.Payload) (int, s
 		return http.StatusInternalServerError, executionID, err
 	}
 
-	fmt.Println(transactions)
+	var body []map[string]string
+
+	total := calculateTotal(transactions)
+	body = appendResult(body, "Total balance is", total)
+
+	averageDebit := calculateAverage(transactions, entities.DebitType)
+	body = appendResult(body, "Average debit amount", averageDebit)
+
+	averageCredit := calculateAverage(transactions, entities.CreditType)
+	body = appendResult(body, "Average credit amount", averageCredit)
+
+	months := groupByMonth(transactions)
+	for _, result := range months {
+		body = appendResult(body, fmt.Sprintf("Number of transactions in %s", result.Month), float64(result.Count))
+	}
+
+	err = u.notification.SendMail(payload.Email, payload.FileName, executionID, body)
+	if err != nil {
+		return http.StatusInternalServerError, executionID, err
+	}
 
 	return http.StatusOK, executionID, nil
 }
@@ -115,4 +143,49 @@ func extractDataCSV(dataFile []byte, executionID string) ([]entities.Transaction
 	}
 
 	return transactions, nil
+}
+
+func calculateTotal(transactions []entities.Transaction) float64 {
+	return linq.From(transactions).Select(func(t interface{}) interface{} {
+		return t.(entities.Transaction).Value
+	}).SumFloats()
+}
+
+func calculateAverage(transactions []entities.Transaction, transactionType entities.TransactionType) float64 {
+	filterFunc := func(t interface{}) bool {
+		return t.(entities.Transaction).TypeTransaction == transactionType
+	}
+
+	return linq.From(transactions).Where(filterFunc).Select(func(t interface{}) interface{} {
+		return t.(entities.Transaction).Value
+	}).Average()
+}
+
+func appendResult(body []map[string]string, text string, value float64) []map[string]string {
+	return append(body, map[string]string{
+		"text":  text,
+		"value": strconv.FormatFloat(value, 'f', -1, 64),
+	})
+}
+
+func groupByMonth(transactions []entities.Transaction) Months {
+	query := linq.From(transactions).GroupBy(func(t interface{}) interface{} {
+		return t.(entities.Transaction).Date.Month()
+	}, func(t interface{}) interface{} {
+		return t.(entities.Transaction).Date.Month()
+	}).Select(func(group interface{}) interface{} {
+		month := fmt.Sprintf("%s", group.(linq.Group).Key)
+		count := len(group.(linq.Group).Group)
+
+		return Month{
+			Month: month,
+			Count: count,
+		}
+	})
+	// Ejecutamos la consulta y obtenemos los resultados.
+	var months Months
+
+	query.ToSlice(&months)
+
+	return months
 }

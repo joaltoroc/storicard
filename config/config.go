@@ -8,9 +8,10 @@ import (
 
 type (
 	Config struct {
-		Database DatabaseConfig
-		Server   ServerConfig
-		AWS      AWSConfig
+		Database     DatabaseConfig
+		Server       ServerConfig
+		AWS          AWSConfig
+		Notification NotificationConfig
 	}
 
 	DatabaseConfig struct {
@@ -33,6 +34,12 @@ type (
 
 	S3Config struct {
 		Bucket string
+	}
+
+	NotificationConfig struct {
+		ApiKey     string
+		TemplateID string
+		From       string
 	}
 )
 

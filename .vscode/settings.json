@@ -1,10 +1,13 @@
 {
   "cSpell.words": [
+    "ahmetb",
     "dtos",
     "gorm",
     "joaltoroc",
     "labstack",
+    "linq",
     "mysql",
+    "sendgrid",
     "storicard",
     "usecase",
     "uuid"

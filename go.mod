@@ -3,10 +3,12 @@ module github/joaltoroc/storicard
 go 1.22.1
 
 require (
+	github.com/ahmetb/go-linq/v3 v3.2.0
 	github.com/aws/aws-sdk-go v1.51.1
 	github.com/google/uuid v1.4.0
 	github.com/invopop/validation v0.3.0
 	github.com/labstack/echo/v4 v4.11.4
+	github.com/sendgrid/sendgrid-go v3.14.0+incompatible
 	github.com/spf13/viper v1.18.2
 	gorm.io/driver/mysql v1.5.4
 	gorm.io/gorm v1.25.7
@@ -29,6 +31,7 @@ require (
 	github.com/pelletier/go-toml/v2 v2.1.0 // indirect
 	github.com/sagikazarmark/locafero v0.4.0 // indirect
 	github.com/sagikazarmark/slog-shim v0.1.0 // indirect
+	github.com/sendgrid/rest v2.6.9+incompatible // indirect
 	github.com/sourcegraph/conc v0.3.0 // indirect
 	github.com/spf13/afero v1.11.0 // indirect
 	github.com/spf13/cast v1.6.0 // indirect

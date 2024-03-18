@@ -142,6 +142,10 @@ curl --location 'http://localhost:3000/api/v1/transaction/17aab49b-f2dd-4ae5-aa6
 }
 ```
 
+## Email
+
+![email](docs/email.png)
+
 ## Based on
 
 [Golang Clean Architecture](https://github.com/DoWithLogic/golang-clean-architecture)

@@ -5,7 +5,7 @@ Server:
 Database:
   Host: mysql-db
   Port: 3306
-  Name: users
+  Name: transactions
   User: mysql
   Password: pwd
 
@@ -13,3 +13,8 @@ AWS:
   Region: "us-east-1"
   S3:
     Bucket: "joaltoroc-storicard"
+
+Notification:
+  ApiKey: "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"
+  TemplateID: "d-9675e4b2b80c486dab4dc373e31193d8"
+  From: "joaltoroc@jatc.co"
