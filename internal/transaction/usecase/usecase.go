@@ -182,7 +182,7 @@ func groupByMonth(transactions []entities.Transaction) Months {
 			Count: count,
 		}
 	})
-	// Ejecutamos la consulta y obtenemos los resultados.
+
 	var months Months
 
 	query.ToSlice(&months)
