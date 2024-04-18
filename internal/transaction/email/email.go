@@ -1,7 +1,7 @@
 package email
 
 import (
-	"fmt"
+	"errors"
 	"github/joaltoroc/storicard/config"
 	"github/joaltoroc/storicard/internal/transaction"
 	"log"
@@ -45,9 +45,12 @@ func (e *email) SendMail(destination string, fileName string, executionID string
 	response, err := sendgrid.API(request)
 	if err != nil {
 		log.Println(err)
+		return err
 	}
 
-	fmt.Println(response)
+	if response.StatusCode != 200 && response.StatusCode != 202 {
+		return errors.New(response.Body)
+	}
 
 	return nil
 }
